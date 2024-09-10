@@ -1,16 +1,76 @@
-import React from 'react';
+import React, {useState, useEffect} from 'react';
 import { Link } from 'react-router-dom';
 import styled from 'styled-components';
 import Logo from '../assets/logo.svg';
+import {ToastContainer, toast} from 'react-toastify';
+import "react-toastify/dist/ReactToastify.css";
+import axios from "axios";
+import { registerRoute } from '../utils/APIRoutes';
 
 function Register() {
-    const handleSubmit = (event) => {
+    const [values,setValues] = useState({
+        username : "",
+        email : "",
+        password: "",
+        confirmpassword: "",
+    });
+
+    const toastOptions = {
+        position: "bottom-right",
+        autoClose: 5000,
+        pauseOnHover: true,
+        draggable: true,
+        theme: "dark",
+    };
+
+    const handleSubmit = async (event) => {
         event.preventDefault();
-        alert("form");
+        if(handleValidation()){
+            console.log("in validation : ", registerRoute);
+            
+            const {password, confirmpassword, username, email} = values;
+            // post is a http req 
+            const {data} = await axios.post(registerRoute,{
+                username,
+                email,
+                password,
+            });
+        }
+
+    };
+
+    const handleValidation = () => {
+        const {password, confirmpassword, username, email} = values;
+        if (username.length < 3) {
+            toast.error(
+                "Username should be greater than 3 characters",
+                toastOptions
+            );
+            return false;
+        } else if (email === ""){
+            toast.error(
+                "Email is required",
+                toastOptions
+            ); 
+            return false;
+        } else if (password.length < 8) {
+            toast.error(
+                "Password should be equal to or greater than 8 characters",
+                toastOptions
+            );
+            return false;
+        } else if(password !== confirmpassword){
+            toast.error(
+                "Password and Confirm-Password should be same.",
+                toastOptions
+            );
+            return false;
+        } 
+        return true;
     };
 
     const handleChange = (event) => {
-
+        setValues({...values , [event.target.name]:event.target.value});
     };
 
     return (
@@ -42,7 +102,7 @@ function Register() {
                     <input
                         type='password'
                         placeholder='Confirm-Password'
-                        name='confirm-password'
+                        name='confirmpassword'
                         onChange={e => handleChange(e)}
                     />
                     <button type='submit'>Create User</button>
@@ -51,6 +111,7 @@ function Register() {
                     </span>
                 </form>
             </FormContainer>
+            <ToastContainer/>
         </>
     )
 }
@@ -120,9 +181,7 @@ const FormContainer = styled.div`
         color: #4e0eff;
         text-decoration: none;
         font-weight: bold;
-        }
-
-        
+        }        
     }
 `;
 
