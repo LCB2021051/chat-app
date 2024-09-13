@@ -56,3 +56,31 @@ module.exports.login = async (req, res, next) => {
     next(err);
   }
 };
+
+module.exports.setAvatar = async (req, res, next) => {
+  try {
+    const userId = req.params.id;
+    const avatarImage = req.body.image;
+    const userData = await Users.findByIdAndUpdate(userId, {
+      isAvatarImageSet: true,
+      avatarImage,
+    });
+    return res.json({
+      isSet: userData.isAvatarImageSet,
+      image: userData.avatarImage,
+    });
+  } catch (err) {
+    next(err);
+  }
+};
+
+module.exports.getAllUser = async (req, res, next) => {
+  try {
+    const users = await Users.find({ _id: { $ne: req.params.id } }).select(
+      "email username avatarImage _id"
+    );
+    return res.json(users);
+  } catch (err) {
+    next(err);
+  }
+};

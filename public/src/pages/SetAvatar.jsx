@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from "react";
-import { Navigate, useNavigate } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 import styled from "styled-components";
 import loader from "../assets/loader.gif";
 import { ToastContainer, toast } from "react-toastify";
@@ -22,6 +22,12 @@ function SetAvatar() {
     draggable: true,
     theme: "dark",
   };
+
+  useEffect(() => {
+    if (!localStorage.getItem("chat-app-user")) {
+      navigate("/login");
+    }
+  }, [navigate]);
 
   const setProfilePicture = async () => {
     if (selectedAvatar === undefined) {
@@ -109,7 +115,9 @@ function SetAvatar() {
               );
             })}
           </div>
-          <button className="submit-btn">Set as Profile Picture</button>
+          <button className="submit-btn" onClick={setProfilePicture}>
+            Set as Profile Picture
+          </button>
         </Container>
       )}
       <ToastContainer />

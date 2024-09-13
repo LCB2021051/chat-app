@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from "react";
-import { Link, Navigate, useNavigate } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import styled from "styled-components";
 import Logo from "../assets/logo.svg";
 import { ToastContainer, toast } from "react-toastify";
@@ -35,7 +35,6 @@ function Register() {
     if (handleValidation()) {
       const { password, username, email } = values;
 
-      // post is a http req
       const { data } = await axios.post(registerRoute, {
         username,
         email,
