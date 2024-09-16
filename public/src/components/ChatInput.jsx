@@ -5,15 +5,42 @@ import { IoMdSend } from "react-icons/io";
 import { BsEmojiSmileFill } from "react-icons/bs";
 
 function ChatInput({ handleSendMsg }) {
+  const [showEmojiPicker, setShowEmojiPicker] = useState(false);
+  const [msg, setMsg] = useState("");
+
+  const handleEmojiPickerHideShow = () => {
+    setShowEmojiPicker(!showEmojiPicker);
+  };
+
+  const handleEmojiClick = (emojiObj, event) => {
+    let message = msg;
+    message += emojiObj.emoji;
+    setMsg(message);
+  };
+
+  const sendChat = (event) => {
+    event.preventDefault();
+    if (msg.length > 0) {
+      handleSendMsg(msg);
+      setMsg("");
+    }
+  };
+
   return (
     <Container>
       <div className="button-container">
         <div className="emoji">
-          <BsEmojiSmileFill />
+          <BsEmojiSmileFill onClick={handleEmojiPickerHideShow} />
+          {showEmojiPicker && <EmojiPicker onEmojiClick={handleEmojiClick} />}
         </div>
       </div>
-      <form className="input-container">
-        <input type="text" placeholder="type your mssage here" />
+      <form className="input-container" onSubmit={(event) => sendChat(event)}>
+        <input
+          type="text"
+          placeholder="type your mssage here"
+          value={msg}
+          onChange={(e) => setMsg(e.target.value)}
+        />
         <button className="submit">
           <IoMdSend />
         </button>
@@ -38,8 +65,39 @@ const Container = styled.div`
       position: relative;
       svg {
         font-size: 1.5rem;
-        color: #ffff000c8;
+        color: yellow;
         cursor: pointer;
+      }
+      .EmojiPickerReact {
+        position: absolute;
+        top: -480px;
+        height: 470px;
+        width: 290px;
+        background-color: #080420;
+        box-shadow: 0 5px 10px #9a86f3;
+        border-color: #9186f3;
+        .epr-body::-webkit-scrollbar {
+          background-color: #080420;
+          width: 5px;
+          &-thumb {
+            background-color: #9186f3;
+          }
+        }
+        .epr-emoji-category-label {
+          background-color: #080420;
+          button {
+            filter: contrast(0);
+          }
+        }
+        .epr-search-container {
+          input {
+            background-color: transparent;
+            border-color: #9186f3;
+          }
+        }
+        .emoji-group:before {
+          background-color: #080420;
+        }
       }
     }
   }
