@@ -32,7 +32,6 @@ module.exports.getAllMessage = async (req, res, next) => {
         message: msg.message.text,
       };
     });
-    console.log("projectMessages : ", projectMessages);
 
     return res.json(projectMessages);
   } catch (err) {
