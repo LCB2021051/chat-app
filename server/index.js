@@ -13,6 +13,7 @@ app.use(
     origin: [process.env.FRONTEND_URL, "http://localhost:3000"],
     methods: ["POST", "GET", "OPTIONS"],
     credentials: true,
+    allowedHeaders: ["Content-Type", "Authorization"],
   })
 );
 
@@ -24,7 +25,17 @@ app.get("/", (req, res) => {
   res.send("hello world");
 });
 
-app.options("*", cors()); // Handle preflight requests for all routes
+// app.options("*", cors()); // Handle preflight requests for all routes
+app.options("*", (req, res) => {
+  res.setHeader(
+    "Access-Control-Allow-Origin",
+    req.headers.origin || process.env.FRONTEND_URL
+  );
+  res.setHeader("Access-Control-Allow-Methods", "POST, GET, OPTIONS");
+  res.setHeader("Access-Control-Allow-Headers", "Content-Type, Authorization");
+  res.setHeader("Access-Control-Allow-Credentials", "true");
+  res.sendStatus(200); // Always return 200 for preflight
+});
 
 mongoose
   .connect(process.env.MONGO_URL)
