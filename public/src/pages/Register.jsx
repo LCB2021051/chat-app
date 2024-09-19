@@ -32,23 +32,30 @@ function Register() {
 
   const handleSubmit = async (event) => {
     event.preventDefault();
+
     if (handleValidation()) {
       const { password, username, email } = values;
+
       try {
         const { data } = await axios.post(registerRoute, {
           username,
           email,
           password,
         });
-      } catch (err) {
-        console.error(err); // Proper error handling in the catch block.
-      }
 
-      if (data.status === false) {
-        toast.error(data.msg, toastOptions);
-      } else {
-        localStorage.setItem("chat-app-user", JSON.stringify(data.user));
-        navigate("/login");
+        if (data.status === false) {
+          toast.error(data.msg, toastOptions);
+        } else {
+          localStorage.setItem("chat-app-user", JSON.stringify(data.user));
+          navigate("/login");
+        }
+      } catch (error) {
+        // Handle error here
+        console.error("Error during registration:", error);
+        toast.error(
+          "Registration failed. Please try again later.",
+          toastOptions
+        );
       }
     }
   };
