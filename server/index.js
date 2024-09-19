@@ -20,6 +20,9 @@ app.use(express.json());
 
 app.use("/api/auth", userRoutes);
 app.use("/api/messages", messageRoutes);
+app.get("/", (req, res) => {
+  res.send("hello world");
+});
 
 app.options("*", cors()); // Handle preflight requests for all routes
 
