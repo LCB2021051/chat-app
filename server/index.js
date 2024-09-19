@@ -37,7 +37,7 @@ const server = app.listen(process.env.PORT || 5000, () => {
 });
 
 const io = new Server(server, {
-  cors: { origin: process.env.BACKEND_URL },
+  cors: { origin: process.env.FRONTEND_URL },
   credentials: true,
 });
 
