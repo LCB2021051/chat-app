@@ -1,5 +1,5 @@
 // export const host = "http://localhost:5000";
-export const host = "https://chat-app-server-alpha-three.vercel.app";
+export const host = "https://chat-app-server-alpha-three.vercel.app/";
 export const registerRoute = `${host}/api/auth/register`;
 export const loginRoutes = `${host}/api/auth/login`;
 export const setAvatarRoute = `${host}/api/auth/setAvatar`;
