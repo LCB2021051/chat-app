@@ -10,7 +10,7 @@ require("dotenv").config();
 
 app.use(
   cors({
-    origin: [process.env.DEPLOY_URL],
+    origin: [process.env.FRONTEND_URL],
     methods: ["POST", "GET"],
     credentials: true,
   })
@@ -34,7 +34,7 @@ const server = app.listen(process.env.PORT, () => {
 });
 
 const io = new Server(server, {
-  cors: { origin: "https://chat-app-client-snowy.vercel.app/" },
+  cors: { origin: process.env.BACKEND_URL },
   credentials: true,
 });
 
