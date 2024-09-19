@@ -34,7 +34,7 @@ const server = app.listen(process.env.PORT, () => {
 });
 
 const io = new Server(server, {
-  cors: { origin: "http://localhost:3000" },
+  cors: { origin: "https://chat-app-client-snowy.vercel.app/" },
   credentials: true,
 });
 
