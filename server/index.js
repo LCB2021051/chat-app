@@ -50,17 +50,17 @@ const server = app.listen(process.env.PORT || 5000, () => {
 
 /* Socket.io configuration */
 
-// const io = new Server(server, {
-//   cors: {
-//     origin: [
-//       "https://chat-app-client-snowy.vercel.app",
-//       "http://localhost:3000",
-//     ],
-//     credentials: true,
-//   },
-// });
+const io = new Server(server, {
+  cors: {
+    origin: [
+      "https://chat-app-client-snowy.vercel.app",
+      "http://localhost:3000",
+    ],
+    credentials: true,
+  },
+});
 
-const io = new Server(server, cors());
+// const io = new Server(server, cors());
 
 global.onlineUsers = new Map();
 
