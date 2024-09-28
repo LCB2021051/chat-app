@@ -36,8 +36,17 @@ function Chat() {
   }, []);
 
   useEffect(() => {
+    socket = new WebSocket(host);
+    return () => {
+      if (socket.readyState === 1) {
+        socket.close();
+      }
+    };
+  }, []);
+
+  useEffect(() => {
     if (currentUser) {
-      socket.current = io(host);
+      // socket.current = io(host);
       socket.current.emit("add-user", currentUser._id);
     }
   }, [currentUser]);
