@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from "react";
 import styled from "styled-components";
-import Logo from "../assets/logo.svg";
+import Logo from "../assets/Chit-Chat-logo.png";
 
 function Contacts({ contacts, currentUser, changeChat }) {
   const [currentUserName, setCurrentUserName] = useState(undefined);
@@ -25,7 +25,7 @@ function Contacts({ contacts, currentUser, changeChat }) {
         <Container>
           <div className="brand">
             <img src={Logo} alt="logo" />
-            <h3>snappy</h3>
+            <h3>chit-chat</h3>
           </div>
           <div className="contacts">
             {contacts.map((contact, index) => {
