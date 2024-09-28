@@ -12,8 +12,8 @@ require("dotenv").config();
 app.use(
   cors({
     origin: [
-      "https://chat-app-client-snowy.vercel.app",
-      // "http://localhost:3000",
+      "https://chat-app-client-snowy.vercel.app/",
+      "http://localhost:3000",
     ],
     methods: ["POST", "GET", "OPTIONS"],
     credentials: true,
@@ -51,8 +51,8 @@ const server = app.listen(process.env.PORT || 5000, () => {
 const io = new Server(server, {
   cors: {
     origin: [
-      "https://chat-app-client-snowy.vercel.app",
-      // "http://localhost:3000",
+      "https://chat-app-client-snowy.vercel.app/",
+      "http://localhost:3000",
     ],
     credentials: true,
   },
