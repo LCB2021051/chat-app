@@ -54,8 +54,8 @@ const io = new Server(server, {
   cors: {
     origin: [
       "https://chat-app-server-weld.vercel.app/",
-      // "https://chat-app-client-snowy.vercel.app/",
-      // "http://localhost:3000",
+      "https://chat-app-client-snowy.vercel.app/",
+      "http://localhost:3000",
     ],
     credentials: true,
   },
