@@ -50,11 +50,11 @@ const server = app.listen(process.env.PORT || 5000, () => {
 const io = new Server(server, {
   cors: {
     origin: "https://chat-app-client-snowy.vercel.app",
+    methods: ["POST", "GET", "OPTIONS"],
     credentials: true,
+    allowedHeaders: ["Content-Type", "Authorization"],
   },
 });
-
-// const io = new Server(server, cors());
 
 global.onlineUsers = new Map();
 
