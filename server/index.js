@@ -10,16 +10,16 @@ require("dotenv").config();
 
 /* CORS configuration */
 
-app.use(
-  cors({
-    origin: "https://chat-app-client-snowy.vercel.app",
-    methods: ["POST", "GET", "OPTIONS"],
-    credentials: true,
-    allowedHeaders: ["Content-Type", "Authorization"],
-  })
-);
+// app.use(
+//   cors({
+//     origin: "https://chat-app-client-snowy.vercel.app",
+//     methods: ["POST", "GET", "OPTIONS"],
+//     credentials: true,
+//     allowedHeaders: ["Content-Type", "Authorization"],
+//   })
+// );
 
-// app.use(cors());
+app.use(cors());
 
 app.use(express.json());
 
@@ -49,10 +49,11 @@ const server = app.listen(process.env.PORT || 5000, () => {
 
 const io = new Server(server, {
   cors: {
-    origin: "https://chat-app-client-snowy.vercel.app",
+    origin: "https://chat-app-server-weld.vercel.app",
     credentials: true,
   },
 });
+// "https://chat-app-client-snowy.vercel.app",
 
 // const io = new Server(server, cors());
 
