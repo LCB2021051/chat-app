@@ -36,15 +36,11 @@ function Chat() {
   }, []);
 
   useEffect(() => {
-    socket = new WebSocket(host);
-    if (socket.readyState === 1) {
-      socket.close();
-    }
-  }, []);
-
-  useEffect(() => {
-    if (currentUser && socket) {
-      // socket.current = io(host);
+    if (currentUser) {
+      socket = new WebSocket(host);
+      if (socket.readyState === 1) {
+        socket.close();
+      }
       socket.current.emit("add-user", currentUser._id);
     }
   }, [currentUser]);
