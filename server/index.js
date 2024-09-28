@@ -8,7 +8,8 @@ const { Server } = require("socket.io");
 const app = express();
 require("dotenv").config();
 
-// CORS configuration
+/* CORS configuration */
+
 // app.use(
 //   cors({
 //     origin: [
@@ -47,18 +48,19 @@ const server = app.listen(process.env.PORT || 5000, () => {
   console.log(`Server started at Port : ${process.env.PORT}`);
 });
 
-// Socket.io configuration
-// const io = new Server(server, {
-//   cors: {
-//     origin: [
-//       "https://chat-app-client-snowy.vercel.app/",
-//       "http://localhost:3000",
-//     ],
-//     credentials: true,
-//   },
-// });
+/* Socket.io configuration */
 
-const io = new Server(server, cors());
+const io = new Server(server, {
+  cors: {
+    origin: [
+      "https://chat-app-client-snowy.vercel.app/",
+      "http://localhost:3000",
+    ],
+    credentials: true,
+  },
+});
+
+// const io = new Server(server, cors());
 
 global.onlineUsers = new Map();
 
