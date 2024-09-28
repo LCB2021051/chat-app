@@ -37,13 +37,20 @@ function Chat() {
 
   useEffect(() => {
     if (currentUser) {
-      socket = new WebSocket(host);
-      if (socket.readyState === 1) {
-        socket.close();
-      }
-      socket.current.emit("add-user", currentUser._id);
+      socket.current = io(host);
+
+      socket.current.on("connect", () => {
+        socket.current.emit("add-user", currentUser._id);
+      });
+
+      // Cleanup on unmount or when `currentUser` changes
+      return () => {
+        if (socket.current) {
+          socket.current.disconnect();
+        }
+      };
     }
-  }, [currentUser]);
+  }, [currentUser, host]);
 
   useEffect(() => {
     const fetchContacts = async () => {
