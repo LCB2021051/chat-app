@@ -54,7 +54,10 @@ const server = app.listen(process.env.PORT || 5000, () => {
 //     allowedHeaders: ["Content-Type", "Authorization"],
 //   },
 // });
-const io = require("socket.io")(server, { cors: { origin: "*" } });
+const io = require("socket.io")(server, {
+  cors: { origin: "*" },
+  transports: ["websocket"],
+});
 
 global.onlineUsers = new Map();
 
