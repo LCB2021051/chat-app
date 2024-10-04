@@ -7,7 +7,7 @@ import { getAllMessagesRoute, sendMessageRoute } from "../utils/APIRoutes";
 import { v4 as uuidv4 } from "uuid";
 
 function ChatContainer({ currentChat, currentUser, socket }) {
-  console.log("hsgd", socket, currentChat, currentUser);
+  console.log("ChatContainer : ", socket, currentChat, currentUser);
   const [messages, setMessages] = useState([]);
   const [arrivalMessage, setArrivalMessage] = useState(null);
   const scrollRef = useRef();
@@ -32,12 +32,15 @@ function ChatContainer({ currentChat, currentUser, socket }) {
       to: currentChat._id,
       msg: currmsg,
     });
+
+    console.log("send message : ", currmsg);
+
     socket.current.emit("send-msg", {
       to: currentChat._id,
       from: currentUser._id,
       message: currmsg,
     });
-    // socket.to(to).emit("msg-recieve", message);
+
     const msgs = [...messages];
     msgs.push({ fromSelf: true, message: currmsg });
     setMessages(msgs);
@@ -46,7 +49,7 @@ function ChatContainer({ currentChat, currentUser, socket }) {
   useEffect(() => {
     if (socket.current) {
       socket.current.on("msg-recieve", (msg) => {
-        console.log("hell", msg);
+        console.log("message recieved : ", msg);
         setArrivalMessage({ fromSelf: false, message: msg });
       });
     }
