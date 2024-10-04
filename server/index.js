@@ -56,7 +56,6 @@ const server = app.listen(process.env.PORT || 5000, () => {
 // });
 const io = require("socket.io")(server, {
   cors: { origin: "*" },
-  transports: ["websocket"],
 });
 
 global.onlineUsers = new Map();
