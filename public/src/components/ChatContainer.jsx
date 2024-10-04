@@ -7,6 +7,7 @@ import { getAllMessagesRoute, sendMessageRoute } from "../utils/APIRoutes";
 import { v4 as uuidv4 } from "uuid";
 
 function ChatContainer({ currentChat, currentUser, socket }) {
+  console.log("hsgd", socket, currentChat, currentUser);
   const [messages, setMessages] = useState([]);
   const [arrivalMessage, setArrivalMessage] = useState(null);
   const scrollRef = useRef();
@@ -23,7 +24,7 @@ function ChatContainer({ currentChat, currentUser, socket }) {
       }
     };
     fetchMessages();
-  }, [currentChat]);
+  }, [currentChat, arrivalMessage]);
 
   const handleSendMsg = async (currmsg) => {
     await axios.post(sendMessageRoute, {
@@ -36,6 +37,7 @@ function ChatContainer({ currentChat, currentUser, socket }) {
       from: currentUser._id,
       message: currmsg,
     });
+    // socket.to(to).emit("msg-recieve", message);
     const msgs = [...messages];
     msgs.push({ fromSelf: true, message: currmsg });
     setMessages(msgs);
@@ -44,7 +46,7 @@ function ChatContainer({ currentChat, currentUser, socket }) {
   useEffect(() => {
     if (socket.current) {
       socket.current.on("msg-recieve", (msg) => {
-        console.log(msg);
+        console.log("hell", msg);
         setArrivalMessage({ fromSelf: false, message: msg });
       });
     }
@@ -76,9 +78,9 @@ function ChatContainer({ currentChat, currentUser, socket }) {
           <Logout />
         </div>
         <div className="chat-messages">
-          {messages.map((msg) => {
+          {messages.map((msg, idx) => {
             return (
-              <div ref={scrollRef} key={uuidv4}>
+              <div ref={scrollRef} key={idx}>
                 <div
                   className={`message ${msg.fromSelf ? "sended" : "recieved"}`}
                 >
