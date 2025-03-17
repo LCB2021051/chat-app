@@ -63,12 +63,12 @@ function SetAvatar() {
 
     const fetchAvatars = async () => {
       const data = [];
-      const avatarStyle = "pixel-art"; // Choose your preferred avatar style
+      const avatarStyle = "pixel-art";
       const api = `https://api.dicebear.com/9.x/${avatarStyle}/svg`;
 
       for (let i = 0; i < 4; i++) {
         try {
-          const seed = Math.random().toString(36).substring(7); // Generate a random seed
+          const seed = Math.random().toString(36).substring(7);
           const response = await axios.get(`${api}?seed=${seed}&size=128`, {
             responseType: "text", // SVG is text-based
           });
@@ -80,8 +80,10 @@ function SetAvatar() {
               "Too many requests. Please try again later.",
               toastOptions
             );
-            break; // Stop further requests if rate limit is hit
+            break;
           } else {
+            console.log(error);
+
             toast.error(
               "Failed to fetch avatar. Please try again.",
               toastOptions
