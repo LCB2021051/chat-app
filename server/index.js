@@ -58,14 +58,7 @@ const server = app.listen(process.env.PORT || 5000, () => {
 //   },
 // });
 
-const io = require("socket.io")(server, {
-  cors: {
-    origin: [
-      "https://chat-app-client-snowy.vercel.app",
-      "http://localhost:3000",
-    ],
-  },
-});
+const io = require("socket.io")(server);
 
 global.onlineUsers = new Map();
 
