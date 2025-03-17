@@ -64,9 +64,13 @@ function SetAvatar() {
       for (let i = 0; i < 4; i++) {
         try {
           const avatarId = Math.round(Math.random() * 1000);
-          const response = await axios.get(`${api}/${avatarId}.svg`, {
-            responseType: "arraybuffer",
-          });
+          const response = await axios.get(
+            "https://api.multiavatar.com/Binx Bond.svg",
+            { responseType: "arraybuffer" }
+          );
+          // const response = await axios.get(`${api}/${avatarId}.svg`, {
+          //   responseType: "arraybuffer",
+          // });
           const base64Image = Buffer.from(response.data, "binary").toString(
             "base64"
           );
