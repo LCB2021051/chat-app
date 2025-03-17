@@ -33,8 +33,6 @@ function ChatContainer({ currentChat, currentUser, socket }) {
       msg: currmsg,
     });
 
-    console.log("send message : ", currmsg);
-
     socket.current.emit("send-msg", {
       to: currentChat._id,
       from: currentUser._id,
@@ -49,7 +47,6 @@ function ChatContainer({ currentChat, currentUser, socket }) {
   useEffect(() => {
     if (socket.current) {
       socket.current.on("msg-recieve", (msg) => {
-        console.log("message recieved : ", msg);
         setArrivalMessage({ fromSelf: false, message: msg });
       });
     }
