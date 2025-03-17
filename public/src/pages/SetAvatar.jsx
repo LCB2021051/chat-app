@@ -63,11 +63,14 @@ function SetAvatar() {
       const data = [];
       for (let i = 0; i < 4; i++) {
         try {
-          const image = await axios.get(
-            `${api}/${Math.round(Math.random() * 1000)}`
+          const avatarId = Math.round(Math.random() * 1000);
+          const response = await axios.get(`${api}/${avatarId}.svg`, {
+            responseType: "arraybuffer",
+          });
+          const base64Image = Buffer.from(response.data, "binary").toString(
+            "base64"
           );
-          const buffer = Buffer.from(image.data); // Use Buffer.from() instead of new Buffer()
-          data.push(buffer.toString("base64"));
+          data.push(base64Image);
         } catch (error) {
           if (error.response && error.response.status === 429) {
             toast.error(
@@ -86,7 +89,6 @@ function SetAvatar() {
       SetAvatars(data);
       SetIsLoading(false);
     };
-
     fetchAvatars();
   }, []);
 
