@@ -98,7 +98,7 @@ function Register() {
         >
           <div className="brand">
             <img src={Logo} alt="logo" />
-            <h1>snappy</h1>
+            <h1>Chit-Chat</h1>
           </div>
           <input
             type="text"

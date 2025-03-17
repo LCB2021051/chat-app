@@ -7,12 +7,7 @@ function Welcome({ currentUser }) {
     <Container>
       <img src={Robot} alt="welcome-robot" />
       <h1>
-        Welcome,{" "}
-        <span>
-          {currentUser.username.charAt(0).toUpperCase() +
-            currentUser.username.slice(1).toLowerCase() +
-            " !"}
-        </span>
+        Welcome, {currentUser && <span>{currentUser.username + " !"}</span>}
       </h1>
       <h3>Please select a chat to start messaging.</h3>
     </Container>
