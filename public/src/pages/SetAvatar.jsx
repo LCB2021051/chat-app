@@ -59,8 +59,6 @@ function SetAvatar() {
   const delay = (ms) => new Promise((resolve) => setTimeout(resolve, ms));
 
   useEffect(() => {
-    const axios = require("axios"); // Ensure axios is imported
-
     const fetchAvatars = async () => {
       const data = [];
       const avatarStyle = "pixel-art";
@@ -70,7 +68,7 @@ function SetAvatar() {
         try {
           const seed = Math.random().toString(36).substring(7);
           const response = await axios.get(`${api}?seed=${seed}&size=128`, {
-            responseType: "text", // SVG is text-based
+            responseType: "text",
           });
           const base64Image = Buffer.from(response.data).toString("base64");
           data.push(base64Image);

@@ -12,7 +12,10 @@ require("dotenv").config();
 
 app.use(
   cors({
-    origin: "https://chat-app-client-snowy.vercel.app",
+    origin: [
+      "https://chat-app-client-snowy.vercel.app",
+      "http://localhost:3000",
+    ],
     methods: ["POST", "GET", "OPTIONS"],
     credentials: true,
     allowedHeaders: ["Content-Type", "Authorization"],
