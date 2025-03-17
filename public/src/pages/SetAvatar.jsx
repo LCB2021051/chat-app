@@ -9,7 +9,7 @@ import { setAvatarRoute } from "../utils/APIRoutes";
 import { Buffer } from "buffer";
 
 function SetAvatar() {
-  const api = "https://api.multiavatar.com/45678945";
+  // const api = "https://api.multiavatar.com/45678945";
   const navigate = useNavigate();
   const [avatars, SetAvatars] = useState([]);
   const [isLoading, SetIsLoading] = useState(true);
@@ -59,21 +59,20 @@ function SetAvatar() {
   const delay = (ms) => new Promise((resolve) => setTimeout(resolve, ms));
 
   useEffect(() => {
+    const axios = require("axios"); // Ensure axios is imported
+
     const fetchAvatars = async () => {
       const data = [];
+      const avatarStyle = "pixel-art"; // Choose your preferred avatar style
+      const api = `https://api.dicebear.com/9.x/${avatarStyle}/svg`;
+
       for (let i = 0; i < 4; i++) {
         try {
-          const avatarId = Math.round(Math.random() * 1000);
-          const response = await axios.get(
-            "https://api.multiavatar.com/Binx Bond.svg",
-            { responseType: "arraybuffer" }
-          );
-          // const response = await axios.get(`${api}/${avatarId}.svg`, {
-          //   responseType: "arraybuffer",
-          // });
-          const base64Image = Buffer.from(response.data, "binary").toString(
-            "base64"
-          );
+          const seed = Math.random().toString(36).substring(7); // Generate a random seed
+          const response = await axios.get(`${api}?seed=${seed}&size=128`, {
+            responseType: "text", // SVG is text-based
+          });
+          const base64Image = Buffer.from(response.data).toString("base64");
           data.push(base64Image);
         } catch (error) {
           if (error.response && error.response.status === 429) {
@@ -93,6 +92,7 @@ function SetAvatar() {
       SetAvatars(data);
       SetIsLoading(false);
     };
+
     fetchAvatars();
   }, []);
 
