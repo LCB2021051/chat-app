@@ -3,7 +3,6 @@ const cors = require("cors");
 const mongoose = require("mongoose");
 const userRoutes = require("./routes/userRoutes");
 const messageRoutes = require("./routes/messagesRoutes");
-const { Server } = require("socket.io");
 
 const app = express();
 require("dotenv").config();
@@ -58,7 +57,9 @@ const server = app.listen(process.env.PORT || 5000, () => {
 //   },
 // });
 
-const io = require("socket.io")(server);
+const io = require("socket.io")(server, {
+  cors: { origin: "*" },
+});
 
 global.onlineUsers = new Map();
 
